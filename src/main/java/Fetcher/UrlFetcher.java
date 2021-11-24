@@ -6,6 +6,7 @@ import java.util.concurrent.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.FetchDTO;
 import dtos.OurDTO;
 import dtos.RestaurantDTO;
 import utils.HttpUtils;
@@ -22,8 +23,8 @@ public class UrlFetcher {
         @Override
         public RestaurantDTO call() throws Exception {
             String restaurantAPI = HttpUtils.fetchData(url);
-            RestaurantDTO restaurantDTO = gson.fromJson(restaurantAPI, RestaurantDTO.class);
-            return restaurantDTO;
+            FetchDTO fetchDTO = gson.fromJson(restaurantAPI, FetchDTO.class);
+            return fetchDTO.getData();
         }
     }
 
@@ -31,11 +32,14 @@ public class UrlFetcher {
         ExecutorService executor = Executors.newCachedThreadPool();
         List<String> urls = new ArrayList<>();
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41c");
-        urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41b");
+        //urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf3e923d0aca3e7d41c");
+        //urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41b");
 
         Future future = executor.submit(new PingRestaurant(urls.get(0)));
+        //Future future1 = executor.submit(new PingRestaurant(urls.get(1)));
 
         OurDTO restaurants = new OurDTO((RestaurantDTO) future.get());
+        System.out.println(future);
         System.out.println(restaurants.getId());
         return restaurants;
     }

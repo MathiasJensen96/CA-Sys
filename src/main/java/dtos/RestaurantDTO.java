@@ -8,17 +8,19 @@ public class RestaurantDTO {
     private String location;
     private String phone;
     private String address;
+    private String menu;
 
     public RestaurantDTO() {
     }
 
-    public RestaurantDTO(String id, String businessname, String image, String location, String phone, String address) {
+    public RestaurantDTO(String id, String businessname, String image, String location, String phone, String address, String menu) {
         this.id = id;
         this.businessname = businessname;
         this.image = image;
         this.location = location;
         this.phone = phone;
         this.address = address;
+        this.menu = menu;
     }
 
     public String getId() {
@@ -67,5 +69,25 @@ public class RestaurantDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
+    }
+
+    @Override
+    public String toString() {
+        return "RestaurantDTO{" +
+                "id='" + id + '\'' +
+                ", businessname='" + businessname + '\'' +
+                ", image='" + image + '\'' +
+                ", location='" + location + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }

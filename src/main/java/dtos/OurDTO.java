@@ -8,6 +8,7 @@ public class OurDTO {
     private String location;
     private String phone;
     private String address;
+    private String menu;
 
     public OurDTO() {
     }
@@ -19,7 +20,9 @@ public class OurDTO {
         this.location = restaurantDTO.getLocation();
         this.phone = restaurantDTO.getPhone();
         this.address = restaurantDTO.getAddress();
+        this.menu = restaurantDTO.getMenu();
     }
+
 
     public String getId() {
         return id;
@@ -67,5 +70,13 @@ public class OurDTO {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public String getMenu() {
+        return menu;
+    }
+
+    public void setMenu(String menu) {
+        this.menu = menu;
     }
 }
