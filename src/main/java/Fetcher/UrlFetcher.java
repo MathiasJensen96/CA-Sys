@@ -6,9 +6,7 @@ import java.util.concurrent.*;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dtos.FetchDTO;
-import dtos.OurDTO;
-import dtos.RestaurantDTO;
+import dtos.*;
 import utils.HttpUtils;
 
 public class UrlFetcher {
@@ -23,12 +21,25 @@ public class UrlFetcher {
         @Override
         public RestaurantDTO call() throws Exception {
             String restaurantAPI = HttpUtils.fetchData(url);
-            FetchDTO fetchDTO = gson.fromJson(restaurantAPI, FetchDTO.class);
-            return fetchDTO.getData();
+            FetchRestaurantDTO fetchRestaurantDTO = gson.fromJson(restaurantAPI, FetchRestaurantDTO.class);
+            return fetchRestaurantDTO.getData();
         }
     }
 
-    public static List<OurDTO> runParrallel() throws ExecutionException, InterruptedException {
+    static class PingMenu implements Callable<MenuDTO> {
+        String url;
+        PingMenu(String url) {
+            this.url = url;
+        }
+        @Override
+        public MenuDTO call() throws Exception {
+            String menuAPI = HttpUtils.fetchData(url);
+            FetchMenuDTO fetchMenuDTO = gson.fromJson(menuAPI, FetchMenuDTO.class);
+            return fetchMenuDTO.getResult();
+        }
+    }
+
+    public static List<OurRestaurantDTO> runParrallelRestaurants() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newCachedThreadPool();
         List<String> urls = new ArrayList<>();
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41c");
@@ -36,11 +47,27 @@ public class UrlFetcher {
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d418");
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41d");
 
-        ArrayList<OurDTO> restaurants = new ArrayList<>();
+        ArrayList<OurRestaurantDTO> restaurants = new ArrayList<>();
         for (int i = 0; i < urls.size(); i++) {
             Future future = executor.submit(new PingRestaurant(urls.get(i)));
-            restaurants.add(new OurDTO((RestaurantDTO) future.get()));
+            restaurants.add(new OurRestaurantDTO((RestaurantDTO) future.get()));
         }
         return restaurants;
+    }
+
+    public static List<OurMenuDTO> runParrallelMenus() throws ExecutionException, InterruptedException {
+        ExecutorService executor = Executors.newCachedThreadPool();
+        List<String> urls = new ArrayList<>();
+        urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d447");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d44c");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d449");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d449");
+
+        ArrayList<OurMenuDTO> menus = new ArrayList<>();
+        for (int i = 0; i < urls.size(); i++) {
+            Future future = executor.submit(new PingMenu(urls.get(i)));
+            menus.add(new OurMenuDTO((MenuDTO) future.get()));
+        }
+        return menus;
     }
 }

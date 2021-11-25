@@ -1,6 +1,8 @@
 package dtos;
 
-public class OurDTO {
+import java.util.ArrayList;
+
+public class OurRestaurantDTO {
 
     private String id;
     private String businessname;
@@ -10,10 +12,10 @@ public class OurDTO {
     private String address;
     private String menu;
 
-    public OurDTO() {
+    public OurRestaurantDTO() {
     }
 
-    public OurDTO(RestaurantDTO restaurantDTO) {
+    public OurRestaurantDTO(RestaurantDTO restaurantDTO) {
         this.id = restaurantDTO.getId();
         this.businessname = restaurantDTO.getBusinessname();
         this.image = restaurantDTO.getImage();

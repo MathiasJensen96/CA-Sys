@@ -29,7 +29,7 @@ function Foodfusion (){
         <div>
           <h2>Foodfusion</h2>
           <p>{businessname}</p>
-          <p>{image}</p>
+          <img class="picture" src={image}></img>
           <p>{location}</p>
           <p>{phone}</p>
           <p>{address}</p>

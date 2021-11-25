@@ -9,7 +9,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
-import dtos.OurDTO;
+import dtos.OurMenuDTO;
+import dtos.OurRestaurantDTO;
 import utils.EMF_Creator;
 
 import java.io.IOException;
@@ -60,8 +61,17 @@ public class DemoResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String getUrls() throws IOException, InterruptedException, ExecutionException {
-        ArrayList<OurDTO> dataFeched = (ArrayList<OurDTO>) UrlFetcher.runParrallel();
+    public String getRestaurantUrls() throws IOException, InterruptedException, ExecutionException {
+        ArrayList<OurRestaurantDTO> dataFeched = (ArrayList<OurRestaurantDTO>) UrlFetcher.runParrallelRestaurants();
+        String combinedJSON = gson.toJson(dataFeched);
+        return combinedJSON;
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("menu")
+    public String getMenuUrls() throws IOException, InterruptedException, ExecutionException {
+        ArrayList<OurMenuDTO> dataFeched = (ArrayList<OurMenuDTO>) UrlFetcher.runParrallelMenus();
         String combinedJSON = gson.toJson(dataFeched);
         return combinedJSON;
     }

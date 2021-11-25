@@ -29,7 +29,7 @@ function PotASoupKitchen (){
         <div>
           <h2>Pot a Soup Kitchen</h2>
           <p>{businessname}</p>
-          <p>{image}</p>
+          <img class="picture" src={image}></img>
           <p>{location}</p>
           <p>{phone}</p>
           <p>{address}</p>

@@ -1,13 +1,13 @@
 package dtos;
 
-public class FetchDTO {
+public class FetchRestaurantDTO {
 
     private RestaurantDTO data;
 
-    public FetchDTO() {
+    public FetchRestaurantDTO() {
     }
 
-    public FetchDTO(RestaurantDTO data) {
+    public FetchRestaurantDTO(RestaurantDTO data) {
         this.data = data;
     }
 
