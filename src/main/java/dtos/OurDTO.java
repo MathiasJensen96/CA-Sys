@@ -23,7 +23,6 @@ public class OurDTO {
         this.menu = restaurantDTO.getMenu();
     }
 
-
     public String getId() {
         return id;
     }

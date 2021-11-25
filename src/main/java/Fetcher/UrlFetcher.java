@@ -28,19 +28,19 @@ public class UrlFetcher {
         }
     }
 
-    public static OurDTO runParrallel() throws ExecutionException, InterruptedException {
+    public static List<OurDTO> runParrallel() throws ExecutionException, InterruptedException {
         ExecutorService executor = Executors.newCachedThreadPool();
         List<String> urls = new ArrayList<>();
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41c");
-        //urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf3e923d0aca3e7d41c");
-        //urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41b");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41b");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d418");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41d");
 
-        Future future = executor.submit(new PingRestaurant(urls.get(0)));
-        //Future future1 = executor.submit(new PingRestaurant(urls.get(1)));
-
-        OurDTO restaurants = new OurDTO((RestaurantDTO) future.get());
-        System.out.println(future);
-        System.out.println(restaurants.getId());
+        ArrayList<OurDTO> restaurants = new ArrayList<>();
+        for (int i = 0; i < urls.size(); i++) {
+            Future future = executor.submit(new PingRestaurant(urls.get(i)));
+            restaurants.add(new OurDTO((RestaurantDTO) future.get()));
+        }
         return restaurants;
     }
 }

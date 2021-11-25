@@ -13,6 +13,7 @@ import dtos.OurDTO;
 import utils.EMF_Creator;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -60,7 +61,7 @@ public class DemoResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public String getUrls() throws IOException, InterruptedException, ExecutionException {
-        OurDTO dataFeched = UrlFetcher.runParrallel();
+        ArrayList<OurDTO> dataFeched = (ArrayList<OurDTO>) UrlFetcher.runParrallel();
         String combinedJSON = gson.toJson(dataFeched);
         return combinedJSON;
     }
