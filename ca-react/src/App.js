@@ -1,21 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 import "./style2.css";
-import Home from './components/Home';
+import OurNavbar from "./components/Navbar";
+import Home from "./components/Home";
 import Foodfusion from "./components/Foodfusion";
-import HathawayFoods from './components/HathawayFoods';
-import SugarbeeKitchen from './components/SugarbeeKitchen';
-import PotASoupKitchen from './components/PotASoupKitchen';
-import facade from './facade';
+import HathawayFoods from "./components/HathawayFoods";
+import SugarbeeKitchen from "./components/SugarbeeKitchen";
+import PotASoupKitchen from "./components/PotASoupKitchen";
+import Basket from "./components/Basket";
+import facade from "./facade";
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Link,
-  NavLink
+  NavLink,
 } from "react-router-dom";
-
 
 // This site has 3 pages, all of which are rendered
 // dynamically in the browser (not server rendered).
@@ -27,38 +27,19 @@ import {
 // work properly.
 
 export default function BasicExample() {
-
   const [loggedIn, setLoggedIn] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('All is good ... so far');
+  const [errorMessage, setErrorMessage] = useState("All is good ... so far");
 
   const logout = () => {
     facade.logout();
     setLoggedIn(false);
-    setErrorMessage('Logged out.')
+    setErrorMessage("Logged out.");
   };
-  
+
   return (
     <Router>
       <div>
-        <ul className="header">
-          <li>
-            <NavLink exact activeClassName="selected" to="/">Home</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/Foodfusion">Foodfusion</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/HathawayFoods">Hathaway Foods</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/SugarbeeKitchen">Sugarbee Kitchen</NavLink>
-          </li>
-          <li>
-            <NavLink exact activeClassName="selected" to="/PotASoupKitchen">Pot A Soup Kitchen</NavLink>
-          </li>
-        </ul>
-
-        <hr />
+        <OurNavbar />
 
         {/*
           A <Switch> looks through all its children <Route>
@@ -68,29 +49,32 @@ export default function BasicExample() {
           of them to render at a time
         */}
         <div className="content">
-        <Switch>
-          <Route exact path="/">
-            <Home 
-            logout={logout}
-            loggedIn={loggedIn}
-            setLoggedIn={setLoggedIn}
-            facade={facade}
-            setErrorMessage={setErrorMessage}
-            />
-          </Route>
-          <Route path="/Foodfusion">
-              <Foodfusion/>
-          </Route>
-          <Route path="/HathawayFoods">
-            <HathawayFoods/>
-          </Route>
-          <Route path="/SugarbeeKitchen">
-            <SugarbeeKitchen/>
-          </Route>
-          <Route path="/PotASoupKitchen">
-          <PotASoupKitchen/>
-          </Route>
-        </Switch>
+          <Switch>
+            <Route exact path="/">
+              <Home
+                logout={logout}
+                loggedIn={loggedIn}
+                setLoggedIn={setLoggedIn}
+                facade={facade}
+                setErrorMessage={setErrorMessage}
+              />
+            </Route>
+            <Route path="/Foodfusion">
+              <Foodfusion />
+            </Route>
+            <Route path="/HathawayFoods">
+              <HathawayFoods />
+            </Route>
+            <Route path="/SugarbeeKitchen">
+              <SugarbeeKitchen />
+            </Route>
+            <Route path="/PotASoupKitchen">
+              <PotASoupKitchen />
+            </Route>
+            <Route path="/Basket">
+              <Basket />
+            </Route>
+          </Switch>
         </div>
       </div>
     </Router>
