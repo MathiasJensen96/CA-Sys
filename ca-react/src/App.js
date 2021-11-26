@@ -9,22 +9,7 @@ import PotASoupKitchen from "./components/PotASoupKitchen";
 import Basket from "./components/Basket";
 import facade from "./facade";
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Link,
-  NavLink,
-} from "react-router-dom";
-
-// This site has 3 pages, all of which are rendered
-// dynamically in the browser (not server rendered).
-//
-// Although the page does not ever refresh, notice how
-// React Router keeps the URL up to date as you navigate
-// through the site. This preserves the browser history,
-// making sure things like the back button and bookmarks
-// work properly.
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const initialRestaurantState = {
   foodfusion: null,
@@ -64,9 +49,9 @@ export default function BasicExample() {
       .then((data) => {
         const newMenus = {
           foodfusion: { ...data[0], price: 200 },
-          hathawayFoods: data[1],
-          sugarbeeKitchen: data[2],
-          potASoupKitchen: data[3],
+          hathawayFoods: { ...data[1], price: 400 },
+          sugarbeeKitchen: { ...data[2], price: 600 },
+          potASoupKitchen: { ...data[3], price: 600 },
         };
         setMenus(newMenus);
       });
@@ -76,7 +61,6 @@ export default function BasicExample() {
     fetch(`http://localhost:8080/Restaurant/api/info`)
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         const newRestaurants = {
           foodfusion: data[0],
           hathawayFoods: data[1],
@@ -88,8 +72,6 @@ export default function BasicExample() {
   }, []);
 
   function addToBasket(basketItem) {
-    console.log(basket);
-
     let ourBasket = basket.find((basket) => {
       return basket.menuname === basketItem.menuname;
     });
@@ -114,14 +96,6 @@ export default function BasicExample() {
     <Router>
       <div>
         <OurNavbar />
-
-        {/*
-          A <Switch> looks through all its children <Route>
-          elements and renders the first one whose path
-          matches the current URL. Use a <Switch> any time
-          you have multiple routes, but you want only one
-          of them to render at a time
-        */}
         <div className="content">
           {/* {JSON.stringify(restaurants, null, 2)} */}
           <Switch>
@@ -145,18 +119,21 @@ export default function BasicExample() {
               <HathawayFoods
                 restaurantAPI={restaurants.hathawayFoods}
                 menuAPI={menus.hathawayFoods}
+                addToBasket={addToBasket}
               />
             </Route>
             <Route path="/SugarbeeKitchen">
               <SugarbeeKitchen
                 restaurantAPI={restaurants.sugarbeeKitchen}
                 menuAPI={menus.sugarbeeKitchen}
+                addToBasket={addToBasket}
               />
             </Route>
             <Route path="/PotASoupKitchen">
               <PotASoupKitchen
                 restaurantAPI={restaurants.potASoupKitchen}
                 menuAPI={menus.potASoupKitchen}
+                addToBasket={addToBasket}
               />
             </Route>
             <Route path="/Basket">

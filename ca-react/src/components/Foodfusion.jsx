@@ -3,14 +3,14 @@ import "bootstrap/dist/css/bootstrap.css";
 
 function Foodfusion(props) {
   const handleSubmit = () => {
-    console.log(props);
+    //console.log(props);
     const newBasketItem = {
       menuname: props.menuAPI.menuname,
       amount: 1,
       price: props.menuAPI.price,
     };
     props.addToBasket(newBasketItem);
-    console.log(newBasketItem);
+    //console.log(newBasketItem);
   };
 
   //console.log(basketItem);

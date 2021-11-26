@@ -1,4 +1,8 @@
 export default function Basket(props) {
+  //   const handleSubmit = () => {
+  //     console.log(props.basket);
+  //     //updateBasket();
+  //   };
   return (
     <table className="table">
       <thead>
@@ -15,9 +19,23 @@ export default function Basket(props) {
             <td>{basket.menuname}</td>
             <td>{basket.amount}</td>
             <td>{basket.price}</td>
+            <td>
+              <i
+                // id={basket.menuname}
+                className="fas fa-trash"
+                // onClick={handleSubmit}
+              ></i>
+            </td>
           </tr>
         ))}
       </tbody>
     </table>
   );
 }
+
+// function updateBasket(basketItem) {
+//   //basketItem = this.basket;
+//   console.log(basketItem);
+//   //basketItem.amount = basketItem.amount - 1;
+//   //basket.price = basket.price - basketItem.price;
+// }
