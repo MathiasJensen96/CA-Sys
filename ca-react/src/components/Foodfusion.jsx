@@ -1,43 +1,78 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.css";
 
-function Foodfusion() {
-  const [id, setId] = useState("");
-  const [businessname, setBusinessname] = useState("");
-  const [image, setImage] = useState("");
-  const [location, setLocation] = useState("");
-  const [phone, setPhone] = useState("");
-  const [address, setAddress] = useState("");
-  const [menu, setMenu] = useState("");
+function Foodfusion(props) {
+  const handleSubmit = () => {
+    console.log(props);
+    const newBasketItem = {
+      menuname: props.menuAPI.menuname,
+      amount: 1,
+      price: props.menuAPI.price,
+    };
+    props.addToBasket(newBasketItem);
+    console.log(newBasketItem);
+  };
 
-  fetch(`http://localhost:8080/Restaurant/api/info`)
-    .then((res) => res.json())
-    .then((data) => {
-      const restaurant = data[0];
-      //console.log(data[3])
-      setId(restaurant.id);
-      setBusinessname(restaurant.businessname);
-      setImage(restaurant.image);
-      setLocation(restaurant.location);
-      setPhone(restaurant.phone);
-      setAddress(restaurant.address);
-      setMenu(restaurant.menu);
-    });
+  //console.log(basketItem);
 
-  return (
-    <div class="col-xs-1" align="center">
-      <h2>Foodfusion</h2>
-      <img class="picture" src={image} height="250px;"></img>
-      <p>
-        <b>City:</b> {location}
-      </p>
-      <p>
-        <b>Contact:</b> {phone}
-      </p>
-      <p>
-        <b>Address:</b> {address}
-      </p>
+  return props.restaurantAPI ? (
+    <div>
+      <div className="col-xs-1" align="center">
+        <h2>Foodfusion</h2>
+        <img
+          className="picture"
+          src={props.restaurantAPI.image}
+          height="250px;"
+        ></img>
+        <p>
+          <b>City:</b> {props.restaurantAPI.location}
+        </p>
+        <p>
+          <b>Contact:</b> {props.restaurantAPI.phone}
+        </p>
+        <p>
+          <b>Address:</b> {props.restaurantAPI.address}
+        </p>
+      </div>
+
+      <div className="card" align="center">
+        <div className="card-body">
+          <b>{props.menuAPI.menuname}</b>
+        </div>
+        <p>{props.menuAPI.description}</p>
+        <div style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <img
+            className="picture"
+            src={props.menuAPI.images[0]}
+            height="350px;"
+            width="400px;"
+          ></img>
+          <img
+            className="picture"
+            src={props.menuAPI.images[1]}
+            height="350px;"
+            width="400px;"
+          ></img>
+          <img
+            className="picture"
+            src={props.menuAPI.images[2]}
+            height="350px;"
+            width="400px;"
+          ></img>
+        </div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "center" }}>
+        <button
+          onClick={handleSubmit}
+          type="button"
+          className="btn btn-secondary btn-lg"
+        >
+          Add to Basket
+        </button>
+      </div>
     </div>
+  ) : (
+    <h1>Loading</h1>
   );
 }
 

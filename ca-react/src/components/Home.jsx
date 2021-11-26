@@ -29,7 +29,7 @@ export default function Home({
   };
 
   return (
-    <div class="col-xs-1" align="center">
+    <div className="col-xs-1" align="center">
       <h2>Home</h2>
       <form onSubmit={handleSubmit}>
         <label>

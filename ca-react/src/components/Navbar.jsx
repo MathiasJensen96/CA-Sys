@@ -7,9 +7,9 @@ function OurNavbar() {
   return (
     <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
       <Container>
-        <Navbar.Brand exact href="/">
-          Home
-        </Navbar.Brand>
+        <LinkContainer exact to="/">
+          <Navbar.Brand>Home</Navbar.Brand>
+        </LinkContainer>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
