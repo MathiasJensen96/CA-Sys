@@ -45,7 +45,7 @@ public class UrlFetcher {
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41c");
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41b");
         urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d418");
-        urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41d");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/restaurant/5f5eccf3e923d0aca3e7d41e");
 
         ArrayList<OurRestaurantDTO> restaurants = new ArrayList<>();
         for (int i = 0; i < urls.size(); i++) {
@@ -61,7 +61,7 @@ public class UrlFetcher {
         urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d447");
         urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d44c");
         urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d449");
-        urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d449");
+        urls.add("https://foodbukka.herokuapp.com/api/v1/menu/5f5eccf4e923d0aca3e7d44a");
 
         ArrayList<OurMenuDTO> menus = new ArrayList<>();
         for (int i = 0; i < urls.size(); i++) {

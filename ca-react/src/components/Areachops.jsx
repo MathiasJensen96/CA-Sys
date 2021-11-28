@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function PotASoupKitchen(props) {
+function Areachops(props) {
   const handleSubmit = () => {
     //console.log(props);
     const newBasketItem = {
@@ -14,7 +14,7 @@ function PotASoupKitchen(props) {
 
   return props.restaurantAPI ? (
     <div className="col-xs-1" align="center">
-      <h2>Pot a Soup Kitchen</h2>
+      <h2>Areachops</h2>
       <img
         className="picture"
         src={props.restaurantAPI.image}
@@ -70,4 +70,4 @@ function PotASoupKitchen(props) {
   );
 }
 
-export default PotASoupKitchen;
+export default Areachops;

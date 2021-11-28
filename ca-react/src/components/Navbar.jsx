@@ -25,8 +25,8 @@ function OurNavbar() {
               <Nav.Link>Sugarbee Kitchen</Nav.Link>
             </LinkContainer>
 
-            <LinkContainer exact to="/PotASoupKitchen">
-              <Nav.Link>Pot A Soup Kitchen</Nav.Link>
+            <LinkContainer exact to="/Areachops">
+              <Nav.Link>Areachops</Nav.Link>
             </LinkContainer>
           </Nav>
           <Nav>
