@@ -112,9 +112,10 @@ export default function BasicExample() {
   //TODO: Wont show on basket page
   function calcTotalPrice(basket) {
     var total = 0;
-    return basket.forEach((element) => {
+    basket.forEach((element) => {
       total += element.price;
     });
+    return total;
   }
 
   return (
@@ -166,6 +167,8 @@ export default function BasicExample() {
                 basket={basket}
                 updateBasket={updateBasket}
                 calcTotalPrice={calcTotalPrice}
+                // increaseAmount={increaseAmount}
+                addToBasket={addToBasket}
               />
             </Route>
             <Route path="/Receipt">

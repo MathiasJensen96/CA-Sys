@@ -1,8 +1,4 @@
 export default function Basket(props) {
-  //   const handleSubmit = () => {
-  //     console.log(props.basket);
-  //     //updateBasket();
-  //   };
   return (
     <div key={props.basket}>
       <table className="table">
@@ -23,10 +19,13 @@ export default function Basket(props) {
               <td>{basket.amount}</td>
               <td>{basket.price}</td>
               <td>
-                <i class="fas fa-plus"></i>
+                <i
+                  className="fas fa-plus"
+                  onClick={() => props.addToBasket(basket)}
+                ></i>
               </td>
               <td>
-                <i class="fas fa-minus"></i>
+                <i className="fas fa-minus"></i>
               </td>
               <td>
                 <i
