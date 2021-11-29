@@ -17,7 +17,7 @@ export default function Basket(props) {
             <tr key={basket.menuname}>
               <td>{basket.menuname}</td>
               <td>{basket.amount}</td>
-              <td>{basket.price}</td>
+              <td>{basket.totalPrice}</td>
               <td>
                 <i
                   className="fas fa-plus"
@@ -25,7 +25,10 @@ export default function Basket(props) {
                 ></i>
               </td>
               <td>
-                <i className="fas fa-minus"></i>
+                <i
+                  className="fas fa-minus"
+                  onClick={() => props.removeFromBasket(basket)}
+                ></i>
               </td>
               <td>
                 <i

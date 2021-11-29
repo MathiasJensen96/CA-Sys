@@ -55,10 +55,10 @@ export default function BasicExample() {
       .then((res) => res.json())
       .then((data) => {
         const newMenus = {
-          foodfusion: { ...data[0], price: 200 },
-          hathawayFoods: { ...data[1], price: 400 },
-          sugarbeeKitchen: { ...data[2], price: 600 },
-          areachops: { ...data[3], price: 600 },
+          foodfusion: { ...data[0], price: 200, totalPrice: 0 },
+          hathawayFoods: { ...data[1], price: 400, totalPrice: 0 },
+          sugarbeeKitchen: { ...data[2], price: 600, totalPrice: 0 },
+          areachops: { ...data[3], price: 600, totalPrice: 0 },
         };
         setMenus(newMenus);
       });
@@ -90,7 +90,35 @@ export default function BasicExample() {
         basket.map((basket) => {
           if (basket.menuname === basketItem.menuname) {
             basket.amount++;
-            basket.price = basket.price + basketItem.price;
+            basket.totalPrice = basket.price * basket.amount;
+            console.log(basket.totalPrice);
+          }
+          return basket;
+        })
+      );
+    }
+    localStorage.setItem("basketToken", JSON.stringify(basket));
+  }
+
+  function removeFromBasket(basketItem) {
+    let ourBasket = basket.find((basket) => {
+      return basket.menuname === basketItem.menuname;
+    });
+    if (!ourBasket) {
+      basket.push(basketItem);
+      setBasket(basket);
+    } else {
+      setBasket(
+        basket.map((basket) => {
+          if (basket.menuname === basketItem.menuname) {
+            if (basket.amount > 1) {
+              basket.amount--;
+              basket.totalPrice = basket.price * basket.amount;
+            } else {
+              updateBasket(basket);
+              console.log(basket);
+            }
+            //console.log(basket.totalPrice);
           }
           return basket;
         })
@@ -113,7 +141,7 @@ export default function BasicExample() {
   function calcTotalPrice(basket) {
     var total = 0;
     basket.forEach((element) => {
-      total += element.price;
+      total += element.totalPrice;
     });
     return total;
   }
@@ -167,8 +195,8 @@ export default function BasicExample() {
                 basket={basket}
                 updateBasket={updateBasket}
                 calcTotalPrice={calcTotalPrice}
-                // increaseAmount={increaseAmount}
                 addToBasket={addToBasket}
+                removeFromBasket={removeFromBasket}
               />
             </Route>
             <Route path="/Receipt">

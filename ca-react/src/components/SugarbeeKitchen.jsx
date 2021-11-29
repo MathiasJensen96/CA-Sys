@@ -7,6 +7,7 @@ function SugarbeeKitchen(props) {
       menuname: props.menuAPI.menuname,
       amount: 1,
       price: props.menuAPI.price,
+      totalPrice: props.menuAPI.price,
     };
     props.addToBasket(newBasketItem);
     // console.log(newBasketItem);
