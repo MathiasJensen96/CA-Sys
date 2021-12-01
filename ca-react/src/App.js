@@ -146,6 +146,24 @@ export default function BasicExample() {
     return total;
   }
 
+  function makeReceipt(basket) {
+    const receiptObject = {
+      menuname: basket.menuname,
+      amount: basket.amount,
+      price: basket.price,
+      totalPrice: basket.totalPrice,
+    };
+
+    //console.log(receiptObject);
+
+    const options = facade.makeOptions("POST", true, receiptObject);
+
+    fetch(`http://localhost:8080/Restaurant/api/receipt`, options)
+      .then(facade.handleHttpErrors)
+      .then((data) => {})
+      .catch(facade.errorHandling);
+  }
+
   return (
     <Router>
       <div>
@@ -200,7 +218,11 @@ export default function BasicExample() {
               />
             </Route>
             <Route path="/Receipt">
-              <Receipt basket={basket} calcTotalPrice={calcTotalPrice} />
+              <Receipt
+                basket={basket}
+                calcTotalPrice={calcTotalPrice}
+                makeReceipt={makeReceipt}
+              />
             </Route>
           </Switch>
         </div>

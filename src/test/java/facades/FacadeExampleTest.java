@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Receipt;
 import entities.Role;
 import entities.User;
 import org.junit.jupiter.api.*;
@@ -16,6 +17,8 @@ public class FacadeExampleTest {
 
     private static EntityManagerFactory emf;
     private static UserFacade facade;
+    private static ReceiptFacade facade1;
+
 
     public FacadeExampleTest() {
     }
@@ -68,5 +71,4 @@ public class FacadeExampleTest {
         expected.addRole(userRole);
         assertEquals(expected.getUserName(), actual.getUserName());
     }
-
 }
