@@ -1,10 +1,8 @@
 package utils;
 
 
-import entities.Receipt;
 import entities.Role;
 import entities.User;
-import facades.ReceiptFacade;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,14 +23,11 @@ public class SetupTestUsers {
     User user = new User("user", "testHest");
     User admin = new User("admin", "testHest");
     User both = new User("user_admin", "testHest");
-//      Receipt receipt = new Receipt("test", "3", "299", "898");
 
     if(admin.getUserPass().equals("test")||user.getUserPass().equals("test")||both.getUserPass().equals("test"))
       throw new UnsupportedOperationException("You have not changed the passwords");
 
     em.getTransaction().begin();
-//    em.persist(receipt);
-//    em.getTransaction().commit();
     Role userRole = new Role("user");
     Role adminRole = new Role("admin");
     user.addRole(userRole);
@@ -45,17 +40,10 @@ public class SetupTestUsers {
     em.persist(admin);
     em.persist(both);
 
-
     em.getTransaction().commit();
     System.out.println("PW: " + user.getUserPass());
     System.out.println("Testing user with OK password: " + user.verifyPassword("testHest"));
     System.out.println("Testing user with wrong password: " + user.verifyPassword("test1"));
     System.out.println("Created TEST Users");
-
-
-    //ReceiptFacade receiptFacade = ReceiptFacade.getReceiptFacade(emf);
-    //orderFacade.createOrder("test", "3", "299", "898");
-    //System.out.println(receiptFacade.getAllReceipts());
   }
-
 }

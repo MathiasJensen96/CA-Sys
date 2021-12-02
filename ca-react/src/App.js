@@ -51,7 +51,7 @@ export default function BasicExample() {
   };
 
   useEffect(() => {
-    fetch(`http://localhost:8080/Restaurant/api/info/menu`)
+    fetch(`https://jenseninc.dk/Restaurant/api/info/menu`)
       .then((res) => res.json())
       .then((data) => {
         const newMenus = {
@@ -65,7 +65,7 @@ export default function BasicExample() {
   }, []);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/Restaurant/api/info`)
+    fetch(`https://jenseninc.dk/Restaurant/api/info`)
       .then((res) => res.json())
       .then((data) => {
         const newRestaurants = {
@@ -153,7 +153,7 @@ export default function BasicExample() {
 
     const options = facade.makeOptions("POST", true, receiptObject);
 
-    fetch(`http://localhost:8080/Restaurant/api/receipt`, options)
+    fetch(`https://jenseninc.dk/Restaurant/api/receipt`, options)
       .then(facade.handleHttpErrors)
       .then((data) => {})
       .catch(facade.errorHandling);
