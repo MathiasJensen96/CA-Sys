@@ -1,6 +1,5 @@
 package facades;
 
-import entities.Receipt;
 import entities.Role;
 import entities.User;
 import org.junit.jupiter.api.*;
