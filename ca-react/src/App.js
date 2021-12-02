@@ -112,13 +112,11 @@ export default function BasicExample() {
         basket.map((basket) => {
           if (basket.menuname === basketItem.menuname) {
             if (basket.amount > 1) {
-              basket.amount--;
+              basket.amount = basket.amount - 1;
               basket.totalPrice = basket.price * basket.amount;
-            } else {
+            } else if (basket.amount === 1) {
               updateBasket(basket);
-              console.log(basket);
             }
-            //console.log(basket.totalPrice);
           }
           return basket;
         })
@@ -128,8 +126,6 @@ export default function BasicExample() {
   }
 
   function updateBasket(basketItem) {
-    // console.log(basket);
-    // console.log(basketItem);
     const filteredBasket = basket.filter((item) => item !== basketItem);
     console.log(filteredBasket);
     setBasket(filteredBasket);
@@ -137,7 +133,6 @@ export default function BasicExample() {
     //TODO: Cant remove the last item?
   }
 
-  //TODO: Wont show on basket page
   function calcTotalPrice(basket) {
     var total = 0;
     basket.forEach((element) => {
