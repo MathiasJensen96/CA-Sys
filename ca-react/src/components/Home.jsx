@@ -23,6 +23,7 @@ export default function Home({
     console.log(login);
 
     facade.login(login.username, login.password, setLoggedIn, setErrorMessage);
+    console.log(setLoggedIn);
     console.log(setErrorMessage);
 
     setLogin(initialState);

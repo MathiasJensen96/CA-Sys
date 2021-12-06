@@ -29,9 +29,7 @@ import security.errorhandling.AuthenticationException;
 import errorhandling.GenericExceptionMapper;
 import javax.persistence.EntityManagerFactory;
 
-import sun.print.UnixPrintService;
 import utils.EMF_Creator;
-
 
 @Path("login")
 public class LoginEndpoint {
