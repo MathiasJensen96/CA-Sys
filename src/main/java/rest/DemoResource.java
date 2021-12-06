@@ -11,6 +11,8 @@ import javax.ws.rs.core.*;
 
 import dtos.OurMenuDTO;
 import dtos.OurRestaurantDTO;
+import entities.User;
+import facades.UserFacade;
 import utils.EMF_Creator;
 
 import java.io.IOException;
@@ -23,8 +25,9 @@ import java.util.concurrent.ExecutionException;
 @Path("info")
 public class DemoResource {
 
-    private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory();
+    private static final EntityManagerFactory emf = EMF_Creator.createEntityManagerFactory();
     private static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+    private static final UserFacade userFacade = UserFacade.getUserFacade(emf);
     private static String securityToken;
 
     @Context
@@ -32,14 +35,6 @@ public class DemoResource {
 
     @Context
     SecurityContext securityContext;
-
-    //Just to verify if the database is setup
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Path("all")
-//    public String allUsers() {
-//        //return userFacade.getAllUsers();
-//    }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
@@ -74,5 +69,18 @@ public class DemoResource {
         ArrayList<OurMenuDTO> dataFeched = (ArrayList<OurMenuDTO>) UrlFetcher.runParrallelMenus();
         String combinedJSON = gson.toJson(dataFeched);
         return combinedJSON;
+    }
+
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String createUser(String user) {
+        User u1 = gson.fromJson(user, User.class);
+        //User u2 = new User("tom", "testhest");
+        //System.out.println("******************************");
+        System.out.println(u1.getUserName());
+        //System.out.println("******************************");
+        userFacade.createUser(u1.getUserName(), u1.getUserPass());
+        return "{\"msg\": \"Welcome: " + u1.getUserName() + "\"}";
     }
 }
