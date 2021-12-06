@@ -6,6 +6,7 @@ export default function Home({
   setErrorMessage,
   logout,
   loggedIn,
+  newUser,
 }) {
   const initialState = { username: "", password: "" };
   const [login, setLogin] = useState(initialState);
@@ -18,6 +19,23 @@ export default function Home({
     });
   };
 
+  function addUser() {
+    const userObject = {
+      userName: login.username,
+      userPass: login.password,
+    };
+    console.log(userObject);
+
+    const options = facade.makeOptions("POST", true, userObject);
+
+    fetch(`https://jenseninc.dk/Restaurant/api/info/newUser`, options)
+      .then(facade.handleHttpErrors)
+      .then((data) => {
+        setLogin(initialState);
+      })
+      .catch(facade.errorHandling);
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(login);
@@ -29,40 +47,45 @@ export default function Home({
     setLogin(initialState);
   };
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log(login);
+
+    addUser();
+  };
+
   return (
     <div className="col-xs-1" align="center">
       <h2>Home</h2>
-      <form onSubmit={handleSubmit}>
-        <label>
-          User Name:
+      {!loggedIn && (
+        <form onSubmit={handleSubmit}>
+          <label>
+            User Name:
+            <br />
+            <input
+              type="text"
+              name="username"
+              value={login.username}
+              onChange={changeName}
+            />
+            <br />
+            Password:
+            <br />
+            <input
+              type="text"
+              name="password"
+              value={login.password}
+              onChange={changeName}
+            />
+          </label>
           <br />
-          <input
-            type="text"
-            name="username"
-            value={login.username}
-            onChange={changeName}
-          />
           <br />
-          Password:
-          <br />
-          <input
-            type="text"
-            name="password"
-            value={login.password}
-            onChange={changeName}
-          />
-        </label>
-        <br />
-        <br />
-        <button type="submit">Login</button>
-        {facade.hasUserAccess("user", loggedIn) ||
-          (facade.hasUserAccess("admin", loggedIn) && (
-            <p>
-              <button onClick={logout}>Logout</button>
-            </p>
-          ))}
-        <p>Role: {facade.getUserRoles()}</p>
-      </form>
+          <button type="submit">Login</button>
+          <button onClick={handleClick}>Sign Up</button>
+        </form>
+      )}
+      <p>Role: {facade.getUserRoles()}</p>
+      <button onClick={logout}>Logout</button>
     </div>
   );
 }

@@ -159,6 +159,8 @@ export default function BasicExample() {
       .catch(facade.errorHandling);
   }
 
+  function newUser() {}
+
   return (
     <Router>
       <div>
@@ -173,6 +175,7 @@ export default function BasicExample() {
                 setLoggedIn={setLoggedIn}
                 facade={facade}
                 setErrorMessage={setErrorMessage}
+                newUser={newUser}
               />
             </Route>
             <Route path="/Foodfusion">
