@@ -32,6 +32,7 @@ export default function Home({
       .then(facade.handleHttpErrors)
       .then((data) => {
         setLogin(initialState);
+        alert("User has been created - Now you can login!");
       })
       .catch(facade.errorHandling);
   }

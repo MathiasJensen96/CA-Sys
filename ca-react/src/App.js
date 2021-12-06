@@ -107,6 +107,8 @@ export default function BasicExample() {
     if (!ourBasket) {
       basket.push(basketItem);
       setBasket(basket);
+    } else if (basketItem.amount === 1) {
+      updateBasket(basketItem);
     } else {
       setBasket(
         basket.map((basket) => {
@@ -114,8 +116,6 @@ export default function BasicExample() {
             if (basket.amount > 1) {
               basket.amount = basket.amount - 1;
               basket.totalPrice = basket.price * basket.amount;
-            } else if (basket.amount === 1) {
-              updateBasket(basket);
             }
           }
           return basket;
@@ -129,7 +129,10 @@ export default function BasicExample() {
     const filteredBasket = basket.filter((item) => item !== basketItem);
     console.log(filteredBasket);
     setBasket(filteredBasket);
-    localStorage.setItem("basketToken", JSON.stringify(basket));
+    setTimeout(() => {
+      localStorage.setItem("basketToken", JSON.stringify(filteredBasket));
+    }, 1000);
+
     //TODO: Cant remove the last item?
   }
 
