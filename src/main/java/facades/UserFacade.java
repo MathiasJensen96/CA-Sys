@@ -47,7 +47,7 @@ public class UserFacade {
         }
         return user;
     }
-
+    //TODO: fix response when user is empty or already created
     public User createUser(String userName, String password) {
         EntityManager em = emf.createEntityManager();
         User user = new User(userName, password);
@@ -55,7 +55,6 @@ public class UserFacade {
         try {
             em.getTransaction().begin();
             user.addRole(userRole);
-            //em.persist(userRole);
             em.persist(user);
             em.getTransaction().commit();
             return user;
@@ -71,7 +70,6 @@ public class UserFacade {
             TypedQuery<User> query = em.createQuery("select u from User u", entities.User.class);
             List<User> users = query.getResultList();
             return "[" + users.size() + "]";
-
         } finally {
             em.close();
         }
