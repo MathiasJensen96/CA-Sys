@@ -72,14 +72,11 @@ public class DemoResource {
     }
 
     @POST
+    @Path("newUser")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(String user) {
         User u1 = gson.fromJson(user, User.class);
-        //User u2 = new User("tom", "testhest");
-        //System.out.println("******************************");
-        System.out.println(u1.getUserName());
-        //System.out.println("******************************");
         userFacade.createUser(u1.getUserName(), u1.getUserPass());
         return "{\"msg\": \"Welcome: " + u1.getUserName() + "\"}";
     }
