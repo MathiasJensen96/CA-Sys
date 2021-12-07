@@ -4,6 +4,8 @@ import dtos.ReceiptDTO;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NamedQuery(name = "Receipt.deleteAllRows", query = "DELETE from Receipt")
@@ -16,6 +18,9 @@ public class Receipt implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @ManyToMany
+    private List<User> userList = new ArrayList<>();
 
     public Receipt() {
     }
@@ -70,5 +75,13 @@ public class Receipt implements Serializable {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

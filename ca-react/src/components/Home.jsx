@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function Home({
   facade,
@@ -6,7 +6,8 @@ export default function Home({
   setErrorMessage,
   logout,
   loggedIn,
-  newUser,
+  loggedInUser,
+  setLoggedInUser,
 }) {
   const initialState = { username: "", password: "" };
   const [login, setLogin] = useState(initialState);
@@ -44,7 +45,8 @@ export default function Home({
     facade.login(login.username, login.password, setLoggedIn, setErrorMessage);
     console.log(setLoggedIn);
     console.log(setErrorMessage);
-
+    setLoggedInUser(login.username);
+    console.log(loggedInUser);
     setLogin(initialState);
   };
 

@@ -30,6 +30,13 @@ public class User implements Serializable {
     @ManyToMany
     private List<Role> roleList = new ArrayList<>();
 
+    @JoinTable(name = "user_receipts", joinColumns = {
+            @JoinColumn(name = "user_name", referencedColumnName = "user_name")}, inverseJoinColumns = {
+            @JoinColumn(name = "receipt_ID", referencedColumnName = "ID")})
+
+    @ManyToMany
+    private List<Receipt> receiptList = new ArrayList<>();
+
     public List<String> getRolesAsStrings() {
         if (roleList.isEmpty()) {
             return null;
@@ -39,6 +46,17 @@ public class User implements Serializable {
             rolesAsStrings.add(role.getRoleName());
         });
         return rolesAsStrings;
+    }
+
+    public List<String> getReceiptsAsStrings() {
+        if (receiptList.isEmpty()) {
+            return null;
+        }
+        List<String> receiptsAsStrings = new ArrayList<>();
+        receiptList.forEach((receipt) -> {
+            receiptsAsStrings.add(receipt.getMenuname());
+        });
+        return receiptsAsStrings;
     }
 
     public User() {
@@ -82,4 +100,14 @@ public class User implements Serializable {
     public void addRole(Role userRole) {
         roleList.add(userRole);
     }
+
+    public List<Receipt> getReceiptList() {
+        return receiptList;
+    }
+
+    public void setReceiptList(List<Receipt> receiptList) {
+        this.receiptList = receiptList;
+    }
+
+    public void addReceipt(Receipt userReceipt) { receiptList.add(userReceipt);}
 }

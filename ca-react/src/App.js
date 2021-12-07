@@ -10,13 +10,7 @@ import Basket from "./components/Basket";
 import Receipt from "./components/Receipt";
 import facade from "./facade";
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  useHistory,
-} from "react-router-dom";
-import { render } from "@testing-library/react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 const initialRestaurantState = {
   foodfusion: null,
@@ -34,6 +28,7 @@ const initialMenuState = {
 
 export default function BasicExample() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInUser, setLoggedInUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("All is good ... so far");
   const [restaurants, setRestaurants] = useState(initialRestaurantState);
   const [menus, setMenus] = useState(initialMenuState);
@@ -162,8 +157,6 @@ export default function BasicExample() {
       .catch(facade.errorHandling);
   }
 
-  function newUser() {}
-
   return (
     <Router>
       <div>
@@ -178,7 +171,8 @@ export default function BasicExample() {
                 setLoggedIn={setLoggedIn}
                 facade={facade}
                 setErrorMessage={setErrorMessage}
-                newUser={newUser}
+                loggedInUser={loggedInUser}
+                setLoggedInUser={setLoggedInUser}
               />
             </Route>
             <Route path="/Foodfusion">

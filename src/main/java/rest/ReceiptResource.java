@@ -3,6 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dtos.ReceiptDTO;
+import dtos.UserDTO;
 import entities.Receipt;
 import facades.ReceiptFacade;
 import utils.EMF_Creator;
@@ -32,9 +33,10 @@ public class ReceiptResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createReceipt(String receipt) throws IOException, InterruptedException, ExecutionException {
+    public Response createReceipt(String receipt, String user) throws IOException, InterruptedException, ExecutionException {
         ReceiptDTO receiptDTO = gson.fromJson(receipt, ReceiptDTO.class);
-        Receipt newReceipt = facade.createReceipt(receiptDTO);
+        UserDTO userDTO = gson.fromJson(user, UserDTO.class);
+        Receipt newReceipt = facade.createReceipt(receiptDTO, userDTO);
         return Response.ok(gson.toJson(newReceipt), MediaType.APPLICATION_JSON).build();
     }
 
