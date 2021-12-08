@@ -17,6 +17,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import entities.User;
 import errorhandling.API_Exception;
+
+import javax.servlet.http.HttpSession;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -30,6 +32,7 @@ import errorhandling.GenericExceptionMapper;
 import javax.persistence.EntityManagerFactory;
 
 import utils.EMF_Creator;
+import utils.HttpUtils;
 
 @Path("login")
 public class LoginEndpoint {

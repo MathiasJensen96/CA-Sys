@@ -127,8 +127,6 @@ export default function BasicExample() {
     setTimeout(() => {
       localStorage.setItem("basketToken", JSON.stringify(filteredBasket));
     }, 1000);
-
-    //TODO: Cant remove the last item?
   }
 
   function calcTotalPrice(basket) {
@@ -146,10 +144,16 @@ export default function BasicExample() {
       price: basket.price,
       totalPrice: basket.totalPrice,
     };
+    // const userObject = {
+    //   username: user.username,
+    // };
 
     //console.log(receiptObject);
 
-    const options = facade.makeOptions("POST", true, receiptObject);
+    const options = facade.makeOptions("POST", true, {
+      ...receiptObject,
+      // userObject: userObject,
+    });
 
     fetch(`https://jenseninc.dk/Restaurant/api/receipt`, options)
       .then(facade.handleHttpErrors)

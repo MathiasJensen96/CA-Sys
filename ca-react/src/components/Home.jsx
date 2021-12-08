@@ -40,23 +40,24 @@ export default function Home({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(login);
+
+    // console.log(login);
 
     facade.login(login.username, login.password, setLoggedIn, setErrorMessage);
-    console.log(setLoggedIn);
-    console.log(setErrorMessage);
+    // console.log(setLoggedIn);
+    // console.log(setErrorMessage);
     setLoggedInUser(login.username);
-    console.log(loggedInUser);
+    // console.log(loggedInUser);
     setLogin(initialState);
   };
 
   const handleClick = (event) => {
     event.preventDefault();
-    console.log(login);
-    if (login.username === null) {
-      alert("You need to fill in a username..");
-    } else {
+
+    if (login.username !== "") {
       addUser();
+    } else {
+      alert("You need to fill in a username..");
     }
   };
 

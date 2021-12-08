@@ -8,6 +8,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
 import security.errorhandling.AuthenticationException;
+import utils.EMF_Creator;
 
 import java.util.List;
 
@@ -75,14 +76,16 @@ public class UserFacade {
         }
     }
 
-//    public User getUser(String name) {
-//        EntityManager em = emf.createEntityManager();
-//        try {
-//            TypedQuery<User> query = em.createQuery("Select u From User Where u.user_name = '" + name + "'", User.class);
-//            User user = query.getSingleResult();
-//            return user;
-//        } finally {
-//            em.close();
-//        }
-//    }
+    public User getUser(String name) {
+        EntityManager em = emf.createEntityManager();
+        try {
+            TypedQuery<User> query = em.createQuery("Select u From User u Where u.userName =: name", User.class);
+            query.setParameter("name", name);
+            User user = query.getSingleResult();
+            System.out.println(user);
+            return user;
+        } finally {
+            em.close();
+        }
+    }
 }
