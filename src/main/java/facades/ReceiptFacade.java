@@ -24,11 +24,11 @@ public class ReceiptFacade {
         return instance;
     }
 
-    public Receipt createReceipt(ReceiptDTO receiptDTO, UserDTO userDTO) {
+    public Receipt createReceipt(ReceiptDTO receiptDTO) {
         EntityManager em = emf.createEntityManager();
         Receipt receipt = new Receipt(receiptDTO);
-        User user = userFacade.getUser(userDTO.getUserName());
-        System.out.println(user);
+        //User user = userFacade.getUser(userDTO.getUserName());
+        //System.out.println(user);
 
         //TODO: fetch user from DB
         try {

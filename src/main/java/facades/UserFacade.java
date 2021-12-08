@@ -75,14 +75,14 @@ public class UserFacade {
         }
     }
 
-    public User getUser(String name) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            TypedQuery<User> query = em.createQuery("Select u From Users Where u.user_name = '" + name + "'", User.class);
-            User user = query.getSingleResult();
-            return user;
-        } finally {
-            em.close();
-        }
-    }
+//    public User getUser(String name) {
+//        EntityManager em = emf.createEntityManager();
+//        try {
+//            TypedQuery<User> query = em.createQuery("Select u From User Where u.user_name = '" + name + "'", User.class);
+//            User user = query.getSingleResult();
+//            return user;
+//        } finally {
+//            em.close();
+//        }
+//    }
 }

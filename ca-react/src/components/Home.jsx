@@ -53,8 +53,11 @@ export default function Home({
   const handleClick = (event) => {
     event.preventDefault();
     console.log(login);
-
-    addUser();
+    if (login.username === null) {
+      alert("You need to fill in a username..");
+    } else {
+      addUser();
+    }
   };
 
   return (

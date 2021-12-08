@@ -33,10 +33,10 @@ public class ReceiptResource {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createReceipt(String receipt, String user) throws IOException, InterruptedException, ExecutionException {
+    public Response createReceipt(String receipt) throws IOException, InterruptedException, ExecutionException {
         ReceiptDTO receiptDTO = gson.fromJson(receipt, ReceiptDTO.class);
-        UserDTO userDTO = gson.fromJson(user, UserDTO.class);
-        Receipt newReceipt = facade.createReceipt(receiptDTO, userDTO);
+        //UserDTO userDTO = gson.fromJson(user, UserDTO.class);
+        Receipt newReceipt = facade.createReceipt(receiptDTO);
         return Response.ok(gson.toJson(newReceipt), MediaType.APPLICATION_JSON).build();
     }
 
