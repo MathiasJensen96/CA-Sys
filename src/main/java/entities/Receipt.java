@@ -19,7 +19,7 @@ public class Receipt implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "receiptList", cascade = CascadeType.ALL)
     private List<User> userList = new ArrayList<>();
 
     public Receipt() {
@@ -35,6 +35,11 @@ public class Receipt implements Serializable {
         this.amount = receiptDTO.getAmount();
         this.price = receiptDTO.getPrice();
         this.totalPrice = receiptDTO.getTotalPrice();
+    }
+
+    public void addUser(User user) {
+        userList.add(user);
+        user.getReceiptList().add(this);
     }
 
     public Long getId() {
@@ -83,5 +88,17 @@ public class Receipt implements Serializable {
 
     public void setUserList(List<User> userList) {
         this.userList = userList;
+    }
+
+    @Override
+    public String toString() {
+        return "Receipt{" +
+                "id=" + id +
+                ", userList=" + userList +
+                ", menuname='" + menuname + '\'' +
+                ", amount='" + amount + '\'' +
+                ", price='" + price + '\'' +
+                ", totalPrice='" + totalPrice + '\'' +
+                '}';
     }
 }

@@ -43,7 +43,7 @@ public class ReceiptResource {
         String payload = new String(decoder.decode(chunks[1]));
         String[] payloadArr = payload.split(":");
         String username = payloadArr[6].replaceAll("[\"}]", "");
-        Receipt newReceipt = facade.createReceipt(receiptDTO, username);
+        ReceiptDTO newReceipt = facade.createReceipt(receiptDTO, username);
         return Response.ok(gson.toJson(newReceipt), MediaType.APPLICATION_JSON).build();
     }
 

@@ -42,6 +42,7 @@ public class DemoResource {
     @RolesAllowed("user")
     public String getFromUser() {
         String thisuser = securityContext.getUserPrincipal().getName();
+        userFacade.getAllReceiptsFromUser(thisuser);
         return "{\"msg\": \"Hello to User: " + thisuser + "\"}";
     }
 

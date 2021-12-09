@@ -1,5 +1,6 @@
 package facades;
 
+import entities.Receipt;
 import entities.Role;
 import entities.User;
 
@@ -8,7 +9,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
 
 import security.errorhandling.AuthenticationException;
-import utils.EMF_Creator;
 
 import java.util.List;
 
@@ -76,14 +76,22 @@ public class UserFacade {
         }
     }
 
-    public User getUser(String name) {
+    public User getUser(String name, EntityManager em) {
+        TypedQuery<User> query = em.createQuery("Select u From User u Where u.userName =:name", User.class);
+        query.setParameter("name", name);
+        User user = query.getSingleResult();
+        System.out.println(user);
+        return user;
+    }
+
+    public List<Receipt> getAllReceiptsFromUser(String name) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<User> query = em.createQuery("Select u From User u Where u.userName =: name", User.class);
+            TypedQuery<Receipt> query = em.createQuery("Select r From Receipt r join r.userList u Where u.userName =:name", Receipt.class);
             query.setParameter("name", name);
-            User user = query.getSingleResult();
-            System.out.println(user);
-            return user;
+            List<Receipt> allReceipts = query.getResultList();
+            System.out.println(allReceipts);
+            return allReceipts;
         } finally {
             em.close();
         }

@@ -14,30 +14,31 @@ public class ReceiptFacade {
 
     private static EntityManagerFactory emf;
     private static ReceiptFacade instance;
-    private static UserFacade userFacade = UserFacade.getUserFacade(emf);
+    private static UserFacade userFacade;
 
     public static ReceiptFacade getReceiptFacade(EntityManagerFactory _emf) {
         if (instance == null) {
             emf = _emf;
             instance = new ReceiptFacade();
         }
+        if(userFacade == null) {
+            userFacade = UserFacade.getUserFacade(emf);
+        }
         return instance;
     }
 
-    public Receipt createReceipt(ReceiptDTO receiptDTO, String user) {
+    public ReceiptDTO createReceipt(ReceiptDTO receiptDTO, String userString) {
         EntityManager em = emf.createEntityManager();
         Receipt receipt = new Receipt(receiptDTO);
-
-        User getUser = userFacade.getUser(user);
-        System.out.println(getUser);
+        User user = userFacade.getUser(userString, em);
 
         //TODO: fetch user from DB
         try {
             em.getTransaction().begin();
-            //user.add(receipt)
+            receipt.addUser(user);
             em.persist(receipt);
             em.getTransaction().commit();
-            return receipt;
+            return new ReceiptDTO(receipt);
         } finally {
             em.close();
         }

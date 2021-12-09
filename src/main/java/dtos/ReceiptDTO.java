@@ -1,5 +1,7 @@
 package dtos;
 
+import entities.Receipt;
+
 public class ReceiptDTO {
 
     private String menuname;
@@ -10,11 +12,11 @@ public class ReceiptDTO {
     public ReceiptDTO() {
     }
 
-    public ReceiptDTO(String menuname, String amount, String price, String totalPrice) {
-        this.menuname = menuname;
-        this.amount = amount;
-        this.price = price;
-        this.totalPrice = totalPrice;
+    public ReceiptDTO(Receipt receipt) {
+        this.menuname = receipt.getMenuname();
+        this.amount = receipt.getAmount();
+        this.price = receipt.getPrice();
+        this.totalPrice = receipt.getTotalPrice();
     }
 
     public String getMenuname() {
