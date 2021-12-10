@@ -1,5 +1,6 @@
 package facades;
 
+import dtos.ReceiptDTO;
 import entities.Receipt;
 import entities.Role;
 import entities.User;
@@ -7,9 +8,13 @@ import entities.User;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.HttpHeaders;
 
 import security.errorhandling.AuthenticationException;
 
+import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -84,14 +89,19 @@ public class UserFacade {
         return user;
     }
 
-    public List<Receipt> getAllReceiptsFromUser(String name) {
+    public List<ReceiptDTO> getAllReceiptsFromUser(String name) {
         EntityManager em = emf.createEntityManager();
         try {
-            TypedQuery<Receipt> query = em.createQuery("Select r From Receipt r join r.userList u Where u.userName =:name", Receipt.class);
+            TypedQuery<Receipt> query = em.createQuery(
+                    "Select r From Receipt r join r.userList u Where u.userName =:name", Receipt.class);
             query.setParameter("name", name);
             List<Receipt> allReceipts = query.getResultList();
-            System.out.println(allReceipts);
-            return allReceipts;
+            List<ReceiptDTO> receiptDTOS = new ArrayList<>();
+            for (Receipt r: allReceipts) {
+                ReceiptDTO receiptDTO = new ReceiptDTO(r);
+                receiptDTOS.add(receiptDTO);
+            }
+            return receiptDTOS;
         } finally {
             em.close();
         }

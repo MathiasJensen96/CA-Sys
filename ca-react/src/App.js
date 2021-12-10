@@ -8,6 +8,7 @@ import SugarbeeKitchen from "./components/SugarbeeKitchen";
 import Areachops from "./components/Areachops";
 import Basket from "./components/Basket";
 import Receipt from "./components/Receipt";
+import History from "./components/History";
 import facade from "./facade";
 import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -26,11 +27,18 @@ const initialMenuState = {
   areachops: null,
 };
 
+const initialOrderHistoryState = {
+  menuname: null,
+  amount: null,
+  totalPrice: null,
+};
+
 export default function BasicExample() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInUser, setLoggedInUser] = useState("");
   const [errorMessage, setErrorMessage] = useState("All is good ... so far");
   const [restaurants, setRestaurants] = useState(initialRestaurantState);
+  const [orderHistory, setOrderHistory] = useState(initialOrderHistoryState);
   const [menus, setMenus] = useState(initialMenuState);
   const [basket, setBasket] = useState(() => {
     if (!localStorage.getItem("basketToken")) {
@@ -70,6 +78,19 @@ export default function BasicExample() {
           areachops: data[3],
         };
         setRestaurants(newRestaurants);
+      });
+  }, []);
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/Restaurant/api/info/order`)
+      .then((res) => res.json())
+      .then((data) => {
+        const oldOrderHistory = {
+          menuname: data[3],
+          amount: data[4],
+          totalPrice: data[6],
+        };
+        setOrderHistory(oldOrderHistory);
       });
   }, []);
 
@@ -222,6 +243,9 @@ export default function BasicExample() {
                 calcTotalPrice={calcTotalPrice}
                 makeReceipt={makeReceipt}
               />
+            </Route>
+            <Route path="/History">
+              <History orderAPI={orderHistory} />
             </Route>
           </Switch>
         </div>

@@ -28,6 +28,10 @@ function OurNavbar() {
             <LinkContainer exact to="/Areachops">
               <Nav.Link>Areachops</Nav.Link>
             </LinkContainer>
+
+            <LinkContainer exact to="/History">
+              <Nav.Link>Your History</Nav.Link>
+            </LinkContainer>
           </Nav>
           <Nav>
             <LinkContainer exact to="/Basket">
