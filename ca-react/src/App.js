@@ -50,6 +50,7 @@ export default function BasicExample() {
   const logout = () => {
     facade.logout();
     setLoggedIn(false);
+    setOrderHistory(initialOrderHistoryState);
     setErrorMessage("Logged out.");
   };
 
@@ -81,16 +82,20 @@ export default function BasicExample() {
       });
   }, []);
 
+  const orderOptions = facade.makeOptions("GET", true, "");
+
   useEffect(() => {
-    fetch(`http://localhost:8080/Restaurant/api/info/order`)
+    fetch(`https://jenseninc.dk/Restaurant/api/info/order`, orderOptions)
       .then((res) => res.json())
       .then((data) => {
-        const oldOrderHistory = {
-          menuname: data[3],
-          amount: data[4],
-          totalPrice: data[6],
-        };
-        setOrderHistory(oldOrderHistory);
+        console.log(data);
+        setOrderHistory(data);
+        // const oldOrderHistory = {
+        //   menuname: data[3],
+        //   amount: data[4],
+        //   totalPrice: data[6],
+        // };
+        //setOrderHistory(oldOrderHistory);
       });
   }, []);
 
@@ -165,21 +170,16 @@ export default function BasicExample() {
       price: basket.price,
       totalPrice: basket.totalPrice,
     };
-    // const userObject = {
-    //   username: user.username,
-    // };
-
-    //console.log(receiptObject);
 
     const options = facade.makeOptions("POST", true, {
       ...receiptObject,
-      // userObject: userObject,
     });
-
-    fetch(`https://jenseninc.dk/Restaurant/api/receipt`, options)
-      .then(facade.handleHttpErrors)
-      .then((data) => {})
-      .catch(facade.errorHandling);
+    setTimeout(() => {
+      fetch(`https://jenseninc.dk/Restaurant/api/receipt`, options)
+        .then(facade.handleHttpErrors)
+        .then((data) => {})
+        .catch(facade.errorHandling);
+    }, 1000);
   }
 
   return (
@@ -244,6 +244,7 @@ export default function BasicExample() {
                 makeReceipt={makeReceipt}
               />
             </Route>
+
             <Route path="/History">
               <History orderAPI={orderHistory} />
             </Route>
